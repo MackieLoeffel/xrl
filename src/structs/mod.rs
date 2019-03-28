@@ -8,6 +8,7 @@ mod plugins;
 mod config;
 mod view;
 mod modifyselection;
+mod add_status_item;
 
 pub use self::line::{Line, StyleDef};
 pub use self::operation::{Operation, OperationType};
@@ -24,6 +25,7 @@ pub use self::config::ConfigChanged;
 pub use self::config::ConfigChanges;
 pub use self::view::ViewId;
 pub use self::modifyselection::ModifySelection;
+pub use self::add_status_item::AddStatusItem;
 
 pub type ThemeSettings = ::syntect::highlighting::ThemeSettings;
 

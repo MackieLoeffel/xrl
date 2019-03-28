@@ -5,7 +5,7 @@ extern crate xrl;
 
 use futures::{future, Future, Stream};
 use xrl::{
-    Update, ScrollTo, Style,
+    AddStatusItem, Update, ScrollTo, Style,
     AvailablePlugins, UpdateCmds,
     PluginStarted, PluginStoped,
     ConfigChanged, ThemeChanged,
@@ -56,6 +56,10 @@ impl Frontend for MyFrontend {
         Box::new(future::ok(()))
     }
     fn theme_changed(&mut self, style: ThemeChanged) -> ServerResult<()> {
+        println!("received `theme_changed` from Xi core:\n{:?}", style);
+        Box::new(future::ok(()))
+    }
+    fn add_status_item(&mut self, style: AddStatusItem) -> ServerResult<()> {
         println!("received `theme_changed` from Xi core:\n{:?}", style);
         Box::new(future::ok(()))
     }

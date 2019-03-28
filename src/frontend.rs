@@ -3,7 +3,7 @@ use protocol::Service;
 use futures::{future, Future};
 use serde_json::{from_value, Value};
 use structs::{
-    AvailablePlugins, PluginStarted, PluginStoped,
+    AddStatusItem, AvailablePlugins, PluginStarted, PluginStoped,
     Update, ScrollTo, UpdateCmds, Style, ThemeChanged,
     ConfigChanged
 
@@ -33,6 +33,8 @@ pub trait Frontend {
     fn config_changed(&mut self, config: ConfigChanged) -> ServerResult<()>;
     /// handle `"theme_changed"` notifications from `xi-core`
     fn theme_changed(&mut self, theme: ThemeChanged) -> ServerResult<()>;
+    /// handle `"add_status_item"` notifications from `xi-core`
+    fn add_status_item(&mut self, item: AddStatusItem) -> ServerResult<()>;
 }
 
 /// A builder for the type `F` that implement the `Frontend` trait.
@@ -102,6 +104,10 @@ impl<F: Frontend + Send> Service for F {
             },
             "theme_changed" => match from_value::<ThemeChanged>(params) {
                 Ok(theme) => self.theme_changed(theme),
+                Err(e) => Box::new(future::err(ServerError::DeserializeFailed(e)))
+            },
+            "add_status_item" => match from_value::<AddStatusItem>(params) {
+                Ok(item) => self.add_status_item(item),
                 Err(e) => Box::new(future::err(ServerError::DeserializeFailed(e)))
             },
 

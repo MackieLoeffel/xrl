@@ -60,6 +60,9 @@
 //!    fn theme_changed(&mut self, theme: ThemeChanged) -> ServerResult<()> {
 //!        Box::new(future::ok(()))
 //!    }
+//!    fn add_status_item(&mut self, item: AddStatusItem) -> ServerResult<()> {
+//!        Box::new(future::ok(()))
+//!    }
 //! }
 //!
 //! struct MyFrontendBuilder;
@@ -134,5 +137,5 @@ pub use structs::{
     ThemeSettings,
     UpdateCmds, ConfigChanged, ConfigChanges, ScrollTo, Position,
     Update, Style, Operation, OperationType, Line, StyleDef,
-    ViewId, ModifySelection,
+    ViewId, ModifySelection, AddStatusItem
 };
